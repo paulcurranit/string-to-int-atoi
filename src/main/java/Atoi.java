@@ -9,18 +9,14 @@ public class Atoi {
         int result = 0;
         BigInteger resultBig = BigInteger.valueOf(result);
 
-        int strLoop = 0;
-        while(str.charAt(strLoop) == ' ' && strLoop < str.length()) {
-            str = str.trim();
-            strLoop++;
-        }
+        str = str.trim();
 
         try {
             resultBig = BigInteger.valueOf(Integer.parseInt(str));
         } catch (NumberFormatException e) {
             if(Character.isDigit(str.charAt(0))
                     || str.charAt(0) == '-') {
-                strLoop = 1;
+                int strLoop = 1;
                 int numberEndIndex = -1;
                 while (strLoop < str.length()) {
                     char c = str.charAt(strLoop);
