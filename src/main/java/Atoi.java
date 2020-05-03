@@ -9,32 +9,32 @@ public class Atoi {
         int result = 0;
         BigInteger resultBig = BigInteger.valueOf(result);
 
-        String strWithoutSpaces = str.replaceAll("\\s", "");
+        int strLoop = 0;
+        while(str.charAt(strLoop) == ' ' && strLoop < str.length()) {
+            str = str.trim();
+            strLoop++;
+        }
 
         try {
-            resultBig = BigInteger.valueOf(Integer.parseInt(strWithoutSpaces));
+            resultBig = BigInteger.valueOf(Integer.parseInt(str));
         } catch (NumberFormatException e) {
-            if(Character.isDigit(strWithoutSpaces.charAt(0))
-                    || strWithoutSpaces.charAt(0) == '-') {
-                int strLoop = 1;
+            if(Character.isDigit(str.charAt(0))
+                    || str.charAt(0) == '-') {
+                strLoop = 1;
                 int numberEndIndex = -1;
-                while (strLoop < strWithoutSpaces.length()) {
-                    char c = strWithoutSpaces.charAt(strLoop);
+                while (strLoop < str.length()) {
+                    char c = str.charAt(strLoop);
 
                     if (Character.isDigit(c)) {
                         strLoop++;
                         numberEndIndex = strLoop;
                     } else {
-                        if (!Character.isDigit(strWithoutSpaces.charAt(strLoop -1))) {
-                            return result;
-                        } else {
-                            strLoop = strWithoutSpaces.length();
-                        }
+                            strLoop = str.length();
 
                     }
                 }
 
-                String strNumber = strWithoutSpaces.substring(0, numberEndIndex);
+                String strNumber = str.substring(0, numberEndIndex);
                 resultBig = BigInteger.valueOf(Long.parseLong(strNumber));
             }
         }
@@ -47,13 +47,5 @@ public class Atoi {
         }
 
         return result;
-    }
-
-    private static boolean startNumberFound(int numberStartIndex) {
-        if(numberStartIndex < 0) {
-            return false;
-        } else {
-            return true;
-        }
     }
 }
