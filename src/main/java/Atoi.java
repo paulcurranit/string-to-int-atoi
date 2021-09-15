@@ -12,7 +12,7 @@ public class Atoi {
         str = str.trim();
 
         try {
-            resultBig = BigInteger.valueOf(Integer.parseInt(str));
+            resultBig = new BigInteger(str);
         } catch (NumberFormatException e) {
             if(Character.isDigit(str.charAt(0))
                     || str.charAt(0) == '-') {
@@ -25,23 +25,21 @@ public class Atoi {
                         strLoop++;
                         numberEndIndex = strLoop;
                     } else {
-                            strLoop = str.length();
-
+                        strLoop = str.length();
                     }
                 }
 
                 String strNumber = str.substring(0, numberEndIndex);
-                resultBig = BigInteger.valueOf(Long.parseLong(strNumber));
+                resultBig = new BigInteger(strNumber);
             }
         }
+
         if(resultBig.compareTo(MAXINTEGER)== 1) {
             return Integer.MAX_VALUE;
         } else if(resultBig.compareTo(MININTEGER) == -1){
             return Integer.MIN_VALUE;
-        } else if(resultBig != null) {
-            result = resultBig.intValue();
         }
 
-        return result;
+        return resultBig.intValue();
     }
 }
